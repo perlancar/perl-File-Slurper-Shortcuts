@@ -48,10 +48,10 @@ Usage:
  replace_text($filename, $code, $encoding, $crlf);
 
 This is like L<File::Slurper>'s C<write_text> except that instead of C<$content>
-in the second argument, this routine accepts C<$code>. Code will be have the
-file's content in C<$_>, modify it, and return true. This routine will die if:
-file can't be read with C<read_text()>, code does not return true, file can't be
-written to with C<write_text()>.
+in the second argument, this routine accepts C<$code>. Code should modify C<$_>
+(which contains the content of the file) and return true. This routine will die
+if: file can't be read with C<read_text()>, code does not return true, file
+can't be written to with C<write_text()>.
 
 =head2 replace_binary
 
