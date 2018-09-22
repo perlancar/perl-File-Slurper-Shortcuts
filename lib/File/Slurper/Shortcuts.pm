@@ -5,6 +5,7 @@ package File::Slurper::Shortcuts;
 
 use strict;
 use warnings;
+use Carp;
 
 use File::Slurper ();
 
@@ -17,7 +18,7 @@ sub replace_text {
     local $_ = File::Slurper::read_text($filename, $encoding, $crlf);
 
     my $res = $code->($_);
-    die "replace_text(): Code does not return true" unless $res;
+    croak "replace_text(): Code does not return true" unless $res;
 
     File::Slurper::write_text($filename, $_, $encoding, $crlf);
 }
