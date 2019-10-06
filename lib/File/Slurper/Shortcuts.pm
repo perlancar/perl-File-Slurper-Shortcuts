@@ -16,9 +16,12 @@ sub replace_text {
     my ($filename, $code, $encoding, $crlf) = @_;
 
     local $_ = File::Slurper::read_text($filename, $encoding, $crlf);
+    my $orig = $_;
 
     my $res = $code->($_);
     croak "replace_text(): Code does not return true" unless $res;
+
+    return if $orig eq $_;
 
     File::Slurper::write_text($filename, $_, $encoding, $crlf);
 }
@@ -49,9 +52,12 @@ Usage:
 
 This is like L<File::Slurper>'s C<write_text> except that instead of C<$content>
 in the second argument, this routine accepts C<$code>. Code should modify C<$_>
-(which contains the content of the file) and return true. This routine will die
-if: file can't be read with C<read_text()>, code does not return true, file
+(which contains the content of the file) B<and return true>. This routine will
+die if: file can't be read with C<read_text()>, code does not return true, file
 can't be written to with C<write_text()>.
+
+If content (C<$_>) does not change, file will not be written.
+
 
 =head2 replace_binary
 
