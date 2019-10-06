@@ -30,6 +30,7 @@ sub modify_text {
     return if $orig eq $_;
 
     File::Slurper::write_text($filename, $_, $encoding, $crlf);
+    $orig;
 }
 
 sub modify_binary {
@@ -58,7 +59,7 @@ sub modify_binary {
 
 Usage:
 
- modify_text($filename, $code, $encoding, $crlf);
+ $orig_content = modify_text($filename, $code, $encoding, $crlf);
 
 This is like L<File::Slurper>'s C<write_text> except that instead of C<$content>
 in the second argument, this routine accepts C<$code>. Code should modify C<$_>
@@ -68,6 +69,7 @@ can't be written to with C<write_text()>.
 
 If content (C<$_>) does not change, file will not be written.
 
+Return the original content of file.
 
 =head2 modify_binary
 
