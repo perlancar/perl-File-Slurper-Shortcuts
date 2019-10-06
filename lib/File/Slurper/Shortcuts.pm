@@ -44,6 +44,8 @@ sub modify_binary {
 1;
 # ABSTRACT: Some convenience additions for File::Slurper
 
+=for Pod::Coverage ^(replace_text|replace_binary)$
+
 =head1 SYNOPSIS
 
  use File::Slurper::Shortcuts qw(modify_text modify_binary);
