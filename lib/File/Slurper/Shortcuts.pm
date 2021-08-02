@@ -63,15 +63,25 @@ Usage:
 
  $orig_content = modify_text($filename, $code, $encoding, $crlf);
 
-This is like L<File::Slurper>'s C<write_text> except that instead of C<$content>
-in the second argument, this routine accepts C<$code>. Code should modify C<$_>
-(which contains the content of the file) B<and return true>. This routine will
-die if: file can't be read with C<read_text()>, code does not return true, file
-can't be written to with C<write_text()>.
+This is L<File::Slurper>'s C<read_text> and C<write_text> combined. First,
+C<read_text> is performed then the content of file is put into C<$_>. Then
+C<$code> will be called and should modify C<$_> to modify the content of file.
+Finally, C<write_text> is called to write the new content. If content (C<$_>)
+does not change, file will not be written.
 
-If content (C<$_>) does not change, file will not be written.
+If file can't be read with C<read_text()> an exception will be thrown by
+File::Slurper.
+
+This function will also die if code does not return true.
+
+If file can't be written with C<write_text()> an exception will be thrown by
+File::Slurper.
 
 Return the original content of file.
+
+Note that no locking is performed and file is opened twice, so there might be
+race condition etc.
+
 
 =head2 modify_binary
 
