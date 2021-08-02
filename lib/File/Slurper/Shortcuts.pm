@@ -1,6 +1,8 @@
 package File::Slurper::Shortcuts;
 
+# AUTHORITY
 # DATE
+# DIST
 # VERSION
 
 use strict 'subs', 'vars';
@@ -87,5 +89,7 @@ race condition etc.
 
 
 =head1 SEE ALSO
+
+L<File::Slurper::Temp> also provides C<modify_text> and C<modify_binary>.
 
 L<File::Slurper>
